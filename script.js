@@ -23,6 +23,8 @@ allButtons.forEach(item => {
     toDisplay = sentence.join('');
     if(toDisplay == "") {
       toDisplay = "0";
+    } else if (toDisplay == "Syntax error") {
+      sentence.splice(0);
     }
     displayContent.textContent = toDisplay;
   })
@@ -77,7 +79,8 @@ function dataEntry(totalInputs, currentInput) {
       let result = operationResult(paramA, paramB, prevOperation).toString();
       result = Array.from(result);
       totalInputs = result;
-      totalInputs.push(prevOperation)
+      operationCount = 0;
+  //    totalInputs.push(prevOperation)
       console.log(totalInputs)
       return totalInputs;
     }
@@ -130,7 +133,11 @@ function operationResult(param1, param2, operation) {
       return mult(param1, param2);
       break;
     case '/':
-      return div(param1, param2).toFixed(2);
+      if(param2 == 0) {
+        return "Syntax error";
+      } else {
+        return div(param1, param2).toFixed(2);
+      }
       break;
   }
 }
