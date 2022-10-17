@@ -9,8 +9,8 @@ let allButtons = document.querySelectorAll('button');
 // Variables declaration
 let sentence = [];
 let toDisplay = "";
-let paramA = undefined;
-let paramB = undefined;
+let paramA;
+let paramB;
 let prevOperation = "";
 let nextOperation = "";
 let operationCount = 0;
@@ -33,6 +33,9 @@ function dataEntry(totalInputs, currentInput) {
   // If user inserts CLEAR, it clears the array
   if(currentInput == "CLEAR") {
     console.log(totalInputs)
+    prevOperation = "";
+    nextOperation = "";
+    operationCount = 0;
     totalInputs.splice(0);
     return totalInputs;
   }
@@ -127,7 +130,7 @@ function operationResult(param1, param2, operation) {
       return mult(param1, param2);
       break;
     case '/':
-      return div(param1, param2);
+      return div(param1, param2).toFixed(2);
       break;
   }
 }
