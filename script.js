@@ -4,7 +4,7 @@ let numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
 // DOM manipulation
 let displayContent = document.querySelector('.display-content');
-let allButtons = document.querySelectorAll('button');
+let calcButtons = document.querySelectorAll('.calc-btn');
 
 // Variables declaration
 let sentence = [];
@@ -15,7 +15,7 @@ let prevOperation = "";
 let nextOperation = "";
 let operationCount = 0;
 
-allButtons.forEach(item => {
+calcButtons.forEach(item => {
   item.addEventListener('click', event => {
     console.log("NUEVO CLICK")
     sentence.push(item.textContent);
