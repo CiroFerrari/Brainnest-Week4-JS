@@ -19,7 +19,7 @@ allButtons.forEach(item => {
   item.addEventListener('click', event => {
     console.log("NUEVO CLICK")
     sentence.push(item.textContent);
-    sentence = dataEntry(sentence, item.textContent);
+    sentence = dataEntry(sentence);
     toDisplay = sentence.join('');
     if(toDisplay == "") {
       toDisplay = "0";
@@ -31,14 +31,16 @@ allButtons.forEach(item => {
 })
 
 // User input check
-function dataEntry(totalInputs, currentInput) {
+function dataEntry(totalInputs) {
+  let currentInput = totalInputs[totalInputs.length-1];
+  console.log(currentInput);
   // If user inserts CLEAR, it clears the array
   if(currentInput == "CLEAR") {
-    console.log(totalInputs)
     prevOperation = "";
     nextOperation = "";
     operationCount = 0;
     totalInputs.splice(0);
+    console.log(totalInputs)
     return totalInputs;
   }
   // If user inserts an operation, the counter operation ++
@@ -51,7 +53,7 @@ function dataEntry(totalInputs, currentInput) {
       nextOperation = currentInput;
     }
   }
-  // If the first input is an operation, the first number is set in 0
+  // If the first input is an operation, the first number 'paramA' is set to 0
   console.log(totalInputs, currentInput, operationCount, prevOperation, nextOperation);
   if (totalInputs.length == 1) {
     if (operations.includes(currentInput)) {
@@ -63,7 +65,7 @@ function dataEntry(totalInputs, currentInput) {
       return totalInputs;
     }
   }
-  // If inserts "=" without operation will dismiss the input, with operation will calculate the result
+  // If inserts "=" without a previous operation will dismiss the input; with operation will calculate the result
   if (currentInput == "=" && operationCount == 0) {
     totalInputs.pop();
     console.log(totalInputs);
@@ -74,8 +76,8 @@ function dataEntry(totalInputs, currentInput) {
       console.log(totalInputs);
       return totalInputs;
     } else if (numbers.includes(totalInputs[totalInputs.length-2])) {
-      prevOperation = nextOperation;
-      setParams(totalInputs, prevOperation, nextOperation);
+  //    prevOperation = nextOperation;
+      setParams(totalInputs);
       let result = operationResult(paramA, paramB, prevOperation).toString();
       result = Array.from(result);
       totalInputs = result;
@@ -113,7 +115,7 @@ function setParams(totalInput) {
   console.log(prevOperation)
   console.log(operatorIndex)
   paramA = totalInput.slice(0, operatorIndex).join('');
-  console.log("Param A: ", paramA, totalInput);
+  console.log("Param A: ", paramA);
   paramB = totalInput.slice(operatorIndex+1, totalInput.length-1).join('');
   console.log("Param B: ", paramB);
 }
