@@ -25,6 +25,7 @@ modeButtons.forEach(item => {
       })
       displayContainer.style.background = lightBackground;
       displayContainer.style.borderColor = blackBorder;
+      displayContainer.style.borderWidth = '2px';
       displayContent.style.color = darkText;
     }
     if(item.textContent.startsWith('Dark')) {
@@ -36,6 +37,7 @@ modeButtons.forEach(item => {
       })
       displayContainer.style.background = darkBackground;
       displayContainer.style.borderColor = grayBorder;
+      displayContainer.style.borderWidth = '2px';
       displayContent.style.color = lightText;
     }
     if(item.textContent.startsWith('Crazy')){
