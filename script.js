@@ -87,7 +87,7 @@ function dataEntry(totalInputs) {
       return totalInputs;
     }
   }
-  // Si ingresa una operación y el último elemento ya era una operación, sólo deja la última ingresada
+  // If inserts an operation and the last element was already an operation, only let the last one
   if (operations.includes(currentInput) && operations.includes(totalInputs[totalInputs.length - 2])) {
     totalInputs[totalInputs.length - 2] = currentInput;
     prevOperation = currentInput;
@@ -112,6 +112,13 @@ function dataEntry(totalInputs) {
 
 function setParams(totalInput) {
   let operatorIndex = totalInput.indexOf(prevOperation);
+  if(operatorIndex == 0) {
+    for(let i = 0; i < totalInput.length; i++) {
+      if(totalInput[i] == prevOperation) {
+        operatorIndex = i;
+      }
+    }
+  }
   console.log(prevOperation)
   console.log(operatorIndex)
   paramA = totalInput.slice(0, operatorIndex).join('');
