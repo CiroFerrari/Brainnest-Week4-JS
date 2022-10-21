@@ -17,7 +17,6 @@ let operationCount = 0;
 
 calcButtons.forEach(item => {
   item.addEventListener('click', event => {
-    console.log("NUEVO CLICK")
     sentence.push(item.textContent);
     sentence = dataEntry(sentence);
     toDisplay = sentence.join('');
@@ -33,14 +32,12 @@ calcButtons.forEach(item => {
 // User input check
 function dataEntry(totalInputs) {
   let currentInput = totalInputs[totalInputs.length-1];
-  console.log(currentInput);
   // If user inserts CLEAR, it clears the array
   if(currentInput == "CLEAR") {
     prevOperation = "";
     nextOperation = "";
     operationCount = 0;
     totalInputs.splice(0);
-    console.log(totalInputs)
     return totalInputs;
   }
   // If user inserts an operation, the counter operation ++
@@ -54,36 +51,28 @@ function dataEntry(totalInputs) {
     }
   }
   // If the first input is an operation, the first number 'paramA' is set to 0
-  console.log(totalInputs, currentInput, operationCount, prevOperation, nextOperation);
   if (totalInputs.length == 1) {
     if (operations.includes(currentInput)) {
       totalInputs.unshift("0");
-      console.log(totalInputs);
       return totalInputs;
     } else if (numbers.includes(currentInput)) {
-      console.log(totalInputs);
       return totalInputs;
     }
   }
   // If inserts "=" without a previous operation will dismiss the input; with operation will calculate the result
   if (currentInput == "=" && operationCount == 0) {
     totalInputs.pop();
-    console.log(totalInputs);
     return totalInputs;
   } else if (currentInput == "=" && operationCount == 1) {
     if(operations.includes(totalInputs[totalInputs.length-2])) {
       totalInputs.pop();
-      console.log(totalInputs);
       return totalInputs;
     } else if (numbers.includes(totalInputs[totalInputs.length-2])) {
-  //    prevOperation = nextOperation;
       setParams(totalInputs);
       let result = operationResult(paramA, paramB, prevOperation).toString();
       result = Array.from(result);
       totalInputs = result;
       operationCount = 0;
-  //    totalInputs.push(prevOperation)
-      console.log(totalInputs)
       return totalInputs;
     }
   }
@@ -93,10 +82,8 @@ function dataEntry(totalInputs) {
     prevOperation = currentInput;
     totalInputs.pop();
     operationCount--;
-    console.log(totalInputs)
     return totalInputs;
   } else if((operations.includes(currentInput) && operationCount == 2)) {
-    console.log("CALCULAR")
     setParams(totalInputs, prevOperation, nextOperation);
     let result = operationResult(paramA, paramB, prevOperation).toString();
     prevOperation = nextOperation;
@@ -104,7 +91,6 @@ function dataEntry(totalInputs) {
     totalInputs = result;
     totalInputs.push(prevOperation)
     operationCount--;
-    console.log(totalInputs)
     return totalInputs;
   }
   return totalInputs;
@@ -119,16 +105,11 @@ function setParams(totalInput) {
       }
     }
   }
-  console.log(prevOperation)
-  console.log(operatorIndex)
   paramA = totalInput.slice(0, operatorIndex).join('');
-  console.log("Param A: ", paramA);
   paramB = totalInput.slice(operatorIndex+1, totalInput.length-1).join('');
-  console.log("Param B: ", paramB);
 }
 
 function operationResult(param1, param2, operation) {
-  console.log(param1, operation, param2)
   param1 = Number(param1);
   param2 = Number(param2);
   switch (operation) {
@@ -166,74 +147,3 @@ function mult(a = 0, b = 1) {
 function div(a = 0, b = 1) {
   return a / b;
 }
-
-
-/*
-    if(paramA == undefined && operations.includes(item.textContent)) {
-      if(toDisplay.length == 0){
-        paramA = 0;
-      } else {
-        paramA = toDisplay;
-      }
-    } else if(paramA != undefined && operations.includes(item.textContent)) {
-      let temp = Array.from(toDisplay);
-      if(paramA != 0 && temp.length > paramA.length+1) {
-        temp = temp.splice(paramA.length+1)
-        paramB = temp.join('');
-      } else if (paramA = 0 && temp.length > paramA.length+1) {
-        temp = temp.splice(paramA.length);
-        paramB = temp.join('');
-      }
-      if(paramB != "" && paramB != undefined) {
-        paramA = operationResult(paramA, paramB, operation).toString();
-        paramB = "";
-        toDisplay = paramA + item.textContent;
-      }
-    }
-    if(operations.includes(item.textContent)) {
-      operation = item.textContent;
-    }
-    if(operations.includes(item.textContent) && operations.includes(toDisplay[toDisplay.length-1])) {
-      let temp = Array.from(toDisplay);
-      temp[temp.length-1] = item.textContent;
-      toDisplay = temp.join('');
-    } else {
-      toDisplay += item.textContent;
-    }
- */
-
-/*  if (operations.includes(item.textContent) && operations.includes(sentence[sentence.length - 1])) {
-    sentence[sentence.length - 1] = item.textContent;
-  } else {
-    sentence.push(item.textContent);
-  }
-  console.log("Sentence", sentence)
-  if (operations.includes(item.textContent) && operation == "") {
-    operationCount++;
-    operation = item.textContent;
-  } else if (operations.includes(item.textContent) && operation != "") {
-    operationCount++;
-    lastOperation = item.textContent;
-  }
-  if (operationCount == 2) {
-    let temp = sentence;
-    let operatorIndex;
-    operatorIndex = temp.indexOf(operation);
-    paramA = temp.slice(0, operatorIndex).join('');
-    paramB = temp.slice(operatorIndex + 1, (temp.length - 1)).join('');
-    console.log(temp)
-    operationCount = 1;
-    paramA = operationResult(paramA, paramB, operation).toString();
-    paramB = undefined;
-    operation = lastOperation;
-    temp = paramA + operation;
-    sentence = Array.from(temp);
-  }
-  toDisplay = sentence.join('');
-  if (item.textContent === "=" && paramA == undefined) {
-    console.log("Caso1", sentence)
-    toDisplay = 0;
-  } else if (item.textContent === "=" && paramA)
-  {
-    toDisplay = paramA;
-  }*/
