@@ -48,6 +48,9 @@ main div.display-container {
 
 main div.display-container p.display-content {
     font-size: 25px;
+    max-width: 95%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 button {
