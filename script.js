@@ -32,6 +32,11 @@ calcButtons.forEach(item => {
 // User input check
 function dataEntry(totalInputs) {
   let currentInput = totalInputs[totalInputs.length-1];
+  // If user inserts '0' at the first place, dismiss the input
+  if(currentInput == '0' && totalInputs.length == 1) {
+    totalInputs.pop();
+    return totalInputs;
+  }
   // If user inserts CLEAR, it clears the array
   if(currentInput == "CLEAR") {
     prevOperation = "";
