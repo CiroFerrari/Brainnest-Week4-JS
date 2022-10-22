@@ -131,7 +131,7 @@ function operationResult(param1, param2, operation) {
       if(param2 == 0) {
         return "Syntax error";
       } else {
-        return div(param1, param2).toFixed(2);
+        return div(param1, param2).toFixed(6);
       }
       break;
   }
