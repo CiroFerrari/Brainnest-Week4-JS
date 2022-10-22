@@ -24,6 +24,13 @@ calcButtons.forEach(item => {
       toDisplay = "0";
     } else if (toDisplay == "Syntax error") {
       sentence.splice(0);
+    } else if (toDisplay.indexOf('.') != -1) {
+      let tempResult = Array.from(toDisplay);
+      while (tempResult[tempResult.length - 1] == 0) {
+        tempResult.pop();
+      }
+      tempResult.pop();
+      toDisplay = tempResult.join('')
     }
     displayContent.textContent = toDisplay;
   })
@@ -131,16 +138,7 @@ function operationResult(param1, param2, operation) {
       if (param2 == 0) {
         return "Syntax error";
       } else {
-        let result = div(param1, param2).toFixed(6);
-        if (result.indexOf('.') != -1) {
-          let tempResult = Array.from(result)
-          while(tempResult[tempResult.length-1] == 0) {
-            tempResult.pop();
-          }
-          tempResult.pop();
-          result = tempResult.join('')
-        }
-        return result;
+        return div(param1, param2).toFixed(6);
       }
       break;
   }
