@@ -26,13 +26,13 @@ calcButtons.forEach(item => {
       sentence.splice(0);
     } else if (toDisplay.indexOf('.') != -1) {
       let tempResult = Array.from(toDisplay);
-      while (tempResult[tempResult.length - 1] == 0) {
-        tempResult.pop();
+      while (sentence[sentence.length - 1] == 0) {
+        sentence.pop();
       }
-      if(tempResult[tempResult.length-1] == '.') {
-        tempResult.pop();
+      if(sentence[sentence.length-1] == '.') {
+        sentence.pop();
       }
-      toDisplay = tempResult.join('')
+      toDisplay = sentence.join('')
     }
     displayContent.textContent = toDisplay;
   })
