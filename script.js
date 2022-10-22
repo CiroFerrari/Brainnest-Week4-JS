@@ -29,7 +29,9 @@ calcButtons.forEach(item => {
       while (tempResult[tempResult.length - 1] == 0) {
         tempResult.pop();
       }
-      tempResult.pop();
+      if(tempResult[tempResult.length-1] == '.') {
+        tempResult.pop();
+      }
       toDisplay = tempResult.join('')
     }
     displayContent.textContent = toDisplay;
