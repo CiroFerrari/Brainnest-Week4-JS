@@ -20,7 +20,7 @@ calcButtons.forEach(item => {
     sentence.push(item.textContent);
     sentence = dataEntry(sentence);
     toDisplay = sentence.join('');
-    if(toDisplay == "") {
+    if (toDisplay == "") {
       toDisplay = "0";
     } else if (toDisplay == "Syntax error") {
       sentence.splice(0);
@@ -31,14 +31,14 @@ calcButtons.forEach(item => {
 
 // User input check
 function dataEntry(totalInputs) {
-  let currentInput = totalInputs[totalInputs.length-1];
+  let currentInput = totalInputs[totalInputs.length - 1];
   // If user inserts '0' at the first place, dismiss the input
-  if(currentInput == '0' && totalInputs.length == 1) {
+  if (currentInput == '0' && totalInputs.length == 1) {
     totalInputs.pop();
     return totalInputs;
   }
   // If user inserts CLEAR, it clears the array
-  if(currentInput == "CLEAR") {
+  if (currentInput == "CLEAR") {
     prevOperation = "";
     nextOperation = "";
     operationCount = 0;
@@ -46,9 +46,9 @@ function dataEntry(totalInputs) {
     return totalInputs;
   }
   // If user inserts an operation, the counter operation ++
-  if(operations.includes(currentInput)) {
+  if (operations.includes(currentInput)) {
     operationCount++;
-    if(operationCount == 1) {
+    if (operationCount == 1) {
       prevOperation = currentInput;
       nextOperation = currentInput;
     } else if (operationCount == 2) {
@@ -69,10 +69,10 @@ function dataEntry(totalInputs) {
     totalInputs.pop();
     return totalInputs;
   } else if (currentInput == "=" && operationCount == 1) {
-    if(operations.includes(totalInputs[totalInputs.length-2])) {
+    if (operations.includes(totalInputs[totalInputs.length - 2])) {
       totalInputs.pop();
       return totalInputs;
-    } else if (numbers.includes(totalInputs[totalInputs.length-2])) {
+    } else if (numbers.includes(totalInputs[totalInputs.length - 2])) {
       setParams(totalInputs);
       let result = operationResult(paramA, paramB, prevOperation).toString();
       result = Array.from(result);
@@ -88,7 +88,7 @@ function dataEntry(totalInputs) {
     totalInputs.pop();
     operationCount--;
     return totalInputs;
-  } else if((operations.includes(currentInput) && operationCount == 2)) {
+  } else if ((operations.includes(currentInput) && operationCount == 2)) {
     setParams(totalInputs, prevOperation, nextOperation);
     let result = operationResult(paramA, paramB, prevOperation).toString();
     prevOperation = nextOperation;
@@ -103,15 +103,15 @@ function dataEntry(totalInputs) {
 
 function setParams(totalInput) {
   let operatorIndex = totalInput.indexOf(prevOperation);
-  if(operatorIndex == 0) {
-    for(let i = 0; i < totalInput.length; i++) {
-      if(totalInput[i] == prevOperation) {
+  if (operatorIndex == 0) {
+    for (let i = 0; i < totalInput.length; i++) {
+      if (totalInput[i] == prevOperation) {
         operatorIndex = i;
       }
     }
   }
   paramA = totalInput.slice(0, operatorIndex).join('');
-  paramB = totalInput.slice(operatorIndex+1, totalInput.length-1).join('');
+  paramB = totalInput.slice(operatorIndex + 1, totalInput.length - 1).join('');
 }
 
 function operationResult(param1, param2, operation) {
@@ -128,10 +128,19 @@ function operationResult(param1, param2, operation) {
       return mult(param1, param2);
       break;
     case '/':
-      if(param2 == 0) {
+      if (param2 == 0) {
         return "Syntax error";
       } else {
-        return div(param1, param2).toFixed(6);
+        let result = div(param1, param2).toFixed(6);
+        if (result.indexOf('.') != -1) {
+          let tempResult = Array.from(result)
+          while(tempResult[tempResult.length-1] == 0) {
+            tempResult.pop();
+          }
+          tempResult.pop();
+          result = tempResult.join('')
+        }
+        return result;
       }
       break;
   }
